@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+
+	"name": "Kronify",
+	"description": "Sýnir upphæðir í krónum þegar músarbendill er settur yfir erlenda gjaldmiðla.",
+	"version": "0.1",
+	"author": "Sigurjon Viktorsson",
+
+	"browser_action": {
+		"default_title": "Kronify",
+		"default_popup": "views/menu.html"
+	},
+	"icons": { 
+		"16": "img/krona16.png",
+		"32": "img/krona32.png",
+		"64": "img/krona64.png" 
+	},
+	"background": {
+		"scripts": ["js/background.js"]
+	},
+	"content_scripts": [
+		{
+		"all_frames": true,
+		"matches": ["https://*/*", "http://*/*"],
+		"js": ["lib/jquery-2.2.3.min.js", "js/kronur.js"]
+		}
+	],
+	"permissions": [
+		"contextMenus"
+	]
+}
