@@ -34,10 +34,10 @@ function findTooltips(str) {
 				var isk = Math.round((Number(whole) + Number(parts) / 100) * iskToCurrency);
 				var tooltip = match + " = " + formatISK(String(isk), ".") + " kr.";
 
-				if(tooltip == "")
+				if(val == "")
 					val += tooltip;
 				else
-					val += tooltip + "\n";
+					val += "\n" + tooltip;
 				return match;
 		 	});
 	 	}
@@ -66,11 +66,13 @@ document.addEventListener("mousedown", function(event){
 /* To insert tooltips */
 chrome.runtime.sendMessage(extension, {message: "currency"}, null, function(response){
 	currencies = response.currencies;
-	$("span, td, p,div:has(>span)").each(function() {
+	$("span, td, p, li:not(:has(*)), div:has(>span:not([title])), div:not(:has(*))").each(function() {
 		var self = $(this);
 		var str = self.text();
-		var tooltip = findTooltips(str);
-		if(tooltip != "")
-			self.prop("title", tooltip + self.prop("title"));
+		if(str != "") {
+			var tooltip = findTooltips(str);
+			if(tooltip != "")
+				self.prop("title", tooltip + self.prop("title"));
+		}
 	});
 });
