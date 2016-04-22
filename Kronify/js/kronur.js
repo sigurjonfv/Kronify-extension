@@ -1,11 +1,11 @@
-var extension = "bjcblihlodinhnfgkmalbbhbjgjlbdga";
+var extension = "pighpacghcmkngfbmbpkgbnmidaepapn";
 var options = {};
 
 var currencies = {};
 var currencyQueries = [
 	{
 		currency: "USD",
-		regex: /\$([0-9]{1,3}(?:,?[0-9]{3})*)(?:\.([0-9]{2}))?/g
+		regex: /\$\s?([0-9]{1,3}(?:,?[0-9]{3})*)(?:\.([0-9]{2}))?/g
 	},
 	{
 		currency: "GBP",
@@ -92,7 +92,7 @@ chrome.runtime.sendMessage(extension, {message: "currency"}, null, function(resp
 		$("span, td, p, li:not(:has(*)), div:has(>span:not([title])), div:not(:has(*))").each(function() {
 			var self = $(this);
 			var str = self.text();
-			if(str != "" && str.length < 30) {
+			if(str != "" && str.length < 100) {
 				var tooltip = findTooltips(str);
 				if(tooltip != "") {
 					self.prop("title", tooltip + self.prop("title"));
