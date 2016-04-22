@@ -1,4 +1,6 @@
-var extension = "eiknfipkcokbpjelfhkhlgjlgkgomoem";
+var extension = "bjcblihlodinhnfgkmalbbhbjgjlbdga";
+var options = {};
+
 var currencies = {};
 var currencyQueries = [
 	{
@@ -45,6 +47,19 @@ function findTooltips(str) {
 	 return val;
 }
 
+chrome.storage.sync.get("tooltips", function(items) {
+	options.showTooltips = items.tooltips;
+});
+
+chrome.storage.onChanged.addListener(function(changes) {
+	for (key in changes) {
+		var storageChange = changes[key];
+		if(key == tooltips) {
+			options.showTooltips = storageChange.newValue;
+		}
+	}
+});
+
 /* Change context menu on right click */
 document.addEventListener("mousedown", function(event){
     if (event.button !== 2) {
@@ -54,25 +69,35 @@ document.addEventListener("mousedown", function(event){
     if(selected != "") {
     	var title = findTooltips(selected);
     	title = title.replace(/\r?\n|\r/g, " ");
-    	if(title == "") title = "Engir gjaldmiðlar fundust";
+    	if(title == "")  {
+    		title = "Engir gjaldmiðlar fundust";
+    	}
         chrome.extension.sendMessage({
-               "message": "context", 
-               "selection": selected,
-               "title": title
-            });
+           "message": "context", 
+           "selection": selected,
+           "title": title
+        });
     }
 }, true);
 
 /* To insert tooltips */
 chrome.runtime.sendMessage(extension, {message: "currency"}, null, function(response){
+	if(response.error) {
+		alert("Villa kom upp við að sækja gjaldmiðla, vinsamlegast prófið að endurhlaða síðunni.");
+		return;
+	}
+	
 	currencies = response.currencies;
-	$("span, td, p, li:not(:has(*)), div:has(>span:not([title])), div:not(:has(*))").each(function() {
-		var self = $(this);
-		var str = self.text();
-		if(str != "") {
-			var tooltip = findTooltips(str);
-			if(tooltip != "")
-				self.prop("title", tooltip + self.prop("title"));
-		}
-	});
+	if(options.showTooltips) {
+		$("span, td, p, li:not(:has(*)), div:has(>span:not([title])), div:not(:has(*))").each(function() {
+			var self = $(this);
+			var str = self.text();
+			if(str != "" && str.length < 30) {
+				var tooltip = findTooltips(str);
+				if(tooltip != "") {
+					self.prop("title", tooltip + self.prop("title"));
+				}
+			}
+		});
+	}
 });

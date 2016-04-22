@@ -26,11 +26,45 @@ function updateData(sendResponse) {
 				var date = Date(elem.getElementsByTagName("Dagsetning").item(0).childNodes[0].data);
 				currencies[currency] = {value: value, date: date};
 			}
-			sendResponse({currencies: currencies});
+			sendResponse({currencies: currencies, error: false});
+		}
+		else if(xhr.status == 404) {
+			sendResponse({currencies: currencies, error: true});
 		}
 	}
 	xhr.send();
 }
+
+chrome.storage.sync.get("tooltips", function(items) {
+	var path = "";
+	if(items.tooltips) {
+		path = "/img/krona19-on.png";
+	}
+	else {
+		path = "/img/krona19-off.png";
+	}
+	chrome.browserAction.setIcon({
+		path: path
+	});
+});
+
+chrome.storage.onChanged.addListener(function(changes) {
+	for (key in changes) {
+		var storageChange = changes[key];
+		if(key == "tooltips") {
+			var path = "";
+			if(storageChange.newValue) {
+				path = "img/krona19-on.png";
+			}
+			else {
+				path = "img/krona19-off.png";
+			}
+			chrome.browserAction.setIcon({
+				path: path
+			});
+		}
+	}
+});
 
 chrome.runtime.onInstalled.addListener(function() {
 	var context = ["selection"];
@@ -44,7 +78,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
 		if(dataIsOld())
 			updateData(sendResponse);
 		else  
-			sendResponse({currencies: currencies});
+			sendResponse({currencies: currencies, error: false});
 	}
 	else if(request.message == "context") {
 		chrome.contextMenus.update('kronur',{
