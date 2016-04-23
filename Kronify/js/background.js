@@ -70,6 +70,9 @@ chrome.runtime.onInstalled.addListener(function() {
 	var context = ["selection"];
 	var id = chrome.contextMenus.create({"title": "Breyta í krónur", "contexts":context,
 	                                     "id": "kronur"});
+	chrome.storage.sync.set({
+		tooltips: true
+	});
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) 

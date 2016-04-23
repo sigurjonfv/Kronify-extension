@@ -1,4 +1,4 @@
-var extension = "pighpacghcmkngfbmbpkgbnmidaepapn";
+var extension = chrome.runtime.id;
 var options = {};
 
 var currencies = {};

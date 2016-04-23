@@ -1,4 +1,4 @@
-var extension = "pighpacghcmkngfbmbpkgbnmidaepapn";
+var extension = chrome.runtime.id;
 var currencies = {};
 
 function calculate() {
@@ -48,7 +48,16 @@ chrome.runtime.sendMessage(extension, {message: "currency"}, null, function(resp
 document.addEventListener('DOMContentLoaded', function() {
     var btn = document.getElementById('synameira');
     btn.addEventListener('click', function() {
-        $("#tafla tr").show();
+        var isHidden = $('#tafla tr').is(':hidden');
+        var takki = $("#synameira");
+        if(isHidden) {
+            $('#tafla tr:gt(9)').show();
+            takki.text("Sýna minna");
+        }
+        else {
+            $('#tafla tr:gt(9)').hide();
+            takki.text("Sýna meira");
+        }
     });
 });
 
