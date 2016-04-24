@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 
 	"name": "Kronify",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Sýnir upphæðir í krónum þegar músarbendill er settur yfir erlenda gjaldmiðla.",
 	"author": "Sigurjon Viktorsson",
 
@@ -14,7 +14,9 @@
 	"icons": { 
 		"16": "img/krona16.png",
 		"32": "img/krona32.png",
-		"64": "img/krona64.png" 
+		"64": "img/krona64.png",
+		"128": "img/krona128.png",
+		"256": "img/krona256.png"
 	},
 	"background": {
 		"scripts": ["js/background.js"]

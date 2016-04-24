@@ -35,7 +35,7 @@ function updateData(sendResponse) {
 	xhr.send();
 }
 
-chrome.storage.sync.get("tooltips", function(items) {
+chrome.storage.sync.get({"tooltips": true}, function(items) {
 	var path = "";
 	if(items.tooltips) {
 		path = "/img/krona19-on.png";

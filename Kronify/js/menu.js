@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
         var takki = $("#synameira");
         if(isHidden) {
             $('#tafla tr:gt(9)').show();
-            takki.text("Sýna minna");
+            takki.text("Sýna færri");
         }
         else {
             $('#tafla tr:gt(9)').hide();
-            takki.text("Sýna meira");
+            takki.text("Sýna fleiri");
         }
     });
 });
