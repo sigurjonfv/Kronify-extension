@@ -4,6 +4,8 @@ function dataIsOld() {
     if (currencies.USD == undefined) return true;
     var now = new Date();
     var data = new Date(currencies.USD.date);
+    if (data.getHours() < now.getHours())
+        return true;
     if (data.getDate() < now.getDate())
         return true;
     if (data.getMonth() < now.getMonth())
@@ -32,7 +34,7 @@ function updateData(sendResponse) {
         else if (xhr.status == 404) {
             sendResponse({currencies: currencies, error: true});
         }
-    }
+    };
     xhr.send();
 }
 

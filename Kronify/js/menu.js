@@ -22,7 +22,6 @@ chrome.runtime.sendMessage(extension, {message: "currency"}, null, function (res
     for (key in currencies) {
         if (key == "AUD")
             toomany = true;
-
         var currency = currencies[key];
         var inputid = key + "-in";
         var outputid = key + "-out";
