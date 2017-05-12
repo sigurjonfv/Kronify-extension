@@ -25,8 +25,7 @@ chrome.runtime.sendMessage(extension, {message: "currency"}, null, function (res
         var currency = currencies[key];
         var inputid = key + "-in";
         var outputid = key + "-out";
-        var breyting = '<td class="breyting">' + currency.styrkur + "%" + '</td>';
-        var row = '<tr><td>' + key + '</td>' + breyting + '<td>' + currency.value +
+        var row = '<tr><td>' + key + '</td><td class="breyting">' + currency.styrkur + "%" + '</td><td>' + currency.value +
             '</td><td><input type="number" id="' + inputid +
             '"></input></td><td><input type="text" id="' + outputid +
             '"disabled style="text-align:right;"></input></td></tr>';
