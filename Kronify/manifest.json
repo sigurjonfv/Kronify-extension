@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 
 	"name": "Kronify",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"description": "Sýnir upphæðir í krónum þegar músarbendill er settur yfir erlenda gjaldmiðla.",
 	"author": "Sigurjon Viktorsson",
 
