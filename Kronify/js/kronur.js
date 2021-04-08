@@ -83,7 +83,7 @@ document.addEventListener("mousedown", function (event) {
 /* To insert tooltips */
 chrome.runtime.sendMessage(extension, {message: "currency"}, null, function (response) {
     if (response.error) {
-        alert("Villa kom upp við að sækja gjaldmiðla, vinsamlegast prófið að endurhlaða síðunni.");
+        console.warn("Villa kom upp við að sækja gjaldmiðla, vinsamlegast prófið að endurhlaða síðunni.");
         return;
     }
 
